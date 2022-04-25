@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class SocketListenerDemo {
     private static okhttp3.WebSocket webSocket;
-    private static String SERVER_PATH = "ws://192.168.1.71:8080";
+    private static String SERVER_PATH = "ws://192.168.1.64:3000";
     private static String message;
     private String sentMessage;
     private String receivedMessage;
@@ -33,8 +33,10 @@ public class SocketListenerDemo {
         @Override
         public void onMessage(okhttp3.WebSocket webSocket, String text) {
             super.onMessage(webSocket, text);
-            System.out.println("Message Received: " + text);
-            getImput();
+            if (!text.isEmpty()) {
+                System.out.println("Message Received in SocketListenerDemo: " + text);
+                getImput();
+            }
 
         }
 
@@ -57,7 +59,9 @@ public class SocketListenerDemo {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter message:");
         message = scanner.nextLine();
-        webSocket.send(message);
+        if (!message.isEmpty()){
+            webSocket.send(message);
+        }
     }
 
 
